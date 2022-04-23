@@ -1,0 +1,121 @@
+.chat{
+    flex: 0.65;    
+    display: flex;
+    flex-direction: column;
+    background-color: #060030;
+    border-left: 1px solid #FFA700;
+}
+
+.chat-room-name{
+    margin: 0px;
+    color: #FFA700;
+    font-size: 25px;
+}
+
+.chat-room-last-seen{
+    margin: 0;
+}
+
+.chat_header{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    height: 11vh;
+}
+
+.chat_headerInfo{
+    flex: 1;
+    padding-left: 20px;
+}
+
+.chat_headerInfo > h3 {
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+.chat_headerInfo > p {
+    color:#ffffff;
+}
+
+.chat_headerRight{
+    display: flex;
+    justify-content: space-between;
+    min-width: 100px;
+}
+
+.chat_headerRight .MuiSvgIcon-root {
+    margin-right: 1vw !important;
+    font-size: 24px !important;
+    color: #007aff !important;
+}
+
+.chat_body{
+    flex: 1;
+    background-image: url('https://images.unsplash.com/photo-1611242319342-ed0d65b1a0f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+    background-repeat: repeat;
+    background-position: center;
+    padding: 30px;
+    overflow: scroll;
+}
+
+.chat_message{
+    position: relative;
+    font-size: 18px;
+    border-radius: 10px;
+    padding: 10px;
+    width: fit-content;
+    background-color: #060030b5;
+    color: #00ccff;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.chat_name{
+    position: absolute;
+    top: -24px;
+    font-weight: 1000;
+    font-size: 11px;
+    color: aliceblue
+}
+
+.chat_timestamp{
+    margin-left: auto;
+    font-size: xx-small;
+    color: #ffffff;
+    display: flex;
+}
+
+.chat_receiver{
+    margin-left: auto;
+    background-color: #ffa600a0;
+    color: #000000 !important;
+}
+
+.chat_footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    background-color: #FFA700;
+}
+
+.chat_footer > form{
+    flex: 1;
+    display: flex;
+}
+
+.chat_footer > form > input{
+    flex: 1;
+    border-radius: 30px;
+    padding: 10px;
+    border: none;
+    margin: 0 10px 0px 10px;
+}
+
+.chat_footer .MuiButtonBase-root {
+    color: #060030 !important;
+}
+
+.chat_footer > form > button{
+    display: none;
+}

@@ -1,0 +1,53 @@
+/* .login{
+    background-color: #ff0000;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+} */
+.login {
+    flex: 1;
+    background-image: url('https://images.unsplash.com/photo-1611242319342-ed0d65b1a0f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+    background-color: #14003a;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+}
+
+.login_text > h1 {
+    font-size: 40px;
+    color: #000000;
+}
+
+.login_container {
+    padding: 50px;
+    text-align: center;
+    background-color: #FFA700;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px 0px #000000;
+}
+
+.login_container>img {
+    object-fit: contain;
+    height: 400px;
+    margin-bottom: 40px;
+}
+
+.login_container>button {
+    margin-top: 10px;
+    text-transform: inherit !important;
+    background-color: #060030 !important;
+    color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px #000000;
+}
+
+.login_container>button:hover {
+    margin-top: 10px;
+    text-transform: inherit !important;
+    background-color: #000000 !important;
+    color: #FFA700;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px #ffffff;
+}
