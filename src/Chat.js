@@ -50,7 +50,7 @@ function Chat() {
       message: input,
       name: user.displayName,
       // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timestamp : new Date().toLocaleString()
+      timestamp : new Date().toUTCString()
     });
 
     setInput("");
