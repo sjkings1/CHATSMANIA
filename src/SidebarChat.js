@@ -99,7 +99,7 @@ function SidebarChat({ id, name, addNewChat, email }) {
     //     </div>
     //   </div>
     // )
-    newPersonEnterOrNot && newPersonEnterOrNot == true ? (
+    newPersonEnterOrNot && newPersonEnterOrNot === true ? (
       <Link to={`/rooms/${id}`} key={id}>
         <div className="sidebarChat">
           <Avatar src={`https://avatars.dicebear.com/api/bottts/${seed}.svg`} />

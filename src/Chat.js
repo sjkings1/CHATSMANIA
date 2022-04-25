@@ -21,12 +21,13 @@ function Chat() {
   const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
-
+debugger
   useEffect(() => {
     if (roomId) {
       db.collection("rooms")
         .doc(roomId)
         .onSnapshot((snapshot) => {
+          debugger
           setRoomName(snapshot.data().name);
         });
 
@@ -52,7 +53,6 @@ function Chat() {
       // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timestamp : new Date().toUTCString()
     });
-
     setInput("");
   };
 
@@ -84,7 +84,7 @@ function Chat() {
         {messages.map((message) => (
           <p
             className={`chat_message ${
-              message.name == user.displayName && "chat_receiver"
+              message.name === user.displayName && "chat_receiver"
             }`}
           >
             <span className="chat_name">{message.name}</span>
