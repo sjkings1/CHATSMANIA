@@ -6,6 +6,7 @@ import Login from './Login';
 import { BrowserRouter as Router,Switch, Route} from 'react-router-dom';
 import {useStateValue} from './StateProvider';
 import { actionTypes } from './reducer';
+import DummyWelcomeText from './DummyWelcomeText';
 
 function App() {
   const [{user}, dispatch] = useStateValue();
@@ -32,8 +33,8 @@ function App() {
                   <Chat/>
                 </Route>
                 <Route path="/" exact>
-                  <Chat/>
-                </Route>             
+                  <DummyWelcomeText />
+                </Route>
               </Switch>            
             </Router>
           </div>

@@ -82,7 +82,7 @@
     margin-left: auto;
     font-size: xx-small;
     color: #ffffff;
-    display: flex;
+    /* display: flex;    */
 }
 
 .chat_receiver{

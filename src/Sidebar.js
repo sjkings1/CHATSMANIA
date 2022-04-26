@@ -8,6 +8,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 import "./Sidebar.css";
 import db from "./firebase";
+import { auth, provider } from "./firebase";
 import SidebarChat from "./SidebarChat";
 import { useStateValue } from "./StateProvider";
 import { Popover, Button } from "antd";
@@ -16,27 +17,42 @@ import LogoutIcon from "@mui/icons-material/Logout";
 function Sidebar(props) {
   const [rooms, setRooms] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  const [searchFilter, setSearchFilter] = useState("");
   const logout = () => {
+    auth.signOut();
     localStorage.removeItem("userDetails");
-    window.location.href = window.location.href.slice(
-      0,
-      window.location.href.indexOf("rooms")
-    );
+    window.location.href = window.location.href.slice(0, window.location.href.indexOf("rooms"));
   };
 
   useEffect(() => {
-    const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
+    if (searchFilter.length) {
       setRooms(
-        snapshot.docs.map((doc) =>
-          doc.data().email.includes(user.email)
-            ? {
-                id: doc.id,
-                data: doc.data(),
-              }
-            : null
+        window.rooms.filter(
+          (e) =>
+            e && e.data.name.toLowerCase().includes(searchFilter.toLowerCase())
         )
-      )
-    );
+      );
+    } else {
+      window.rooms && setRooms(window.rooms);
+    }
+  }, [searchFilter]);
+
+  useEffect(() => {
+    window.rooms = [];
+    const unsubscribe = db.collection('rooms').onSnapshot(snapshot => (
+      setRooms(snapshot.docs.map(doc => {
+          window.rooms.push(doc.data().email.includes(user.email) ? {
+              id: doc.id,
+              data: doc.data()
+          } : undefined);
+         return doc.data().email.includes(user.email) ? {
+              id: doc.id,
+              data: doc.data()
+          } : undefined
+      }
+
+      ))
+  ));
 
     return () => {
       unsubscribe();
@@ -79,14 +95,21 @@ function Sidebar(props) {
       <div className="sidebar_search">
         <div className="sidebar_searchContainer">
           <SearchOutlinedIcon />
-          <input type="text" placeholder="Search or start new chat" />
+          <input onChange={(e)=>{setSearchFilter(e.target.value)}} type="text" placeholder="Search or start new chat" />
         </div>
       </div>
       <div className="sidebar_chats">
         <SidebarChat addNewChat />
-        {rooms.map((room) => (
-          room ?<SidebarChat key={room.id} id={room.id} name={room.data.name} email={room.data.email} /> : null
-        ))}
+        {rooms.map((room) =>
+          room ? (
+            <SidebarChat
+              key={room.id}
+              id={room.id}
+              name={room.data.name}
+              email={room.data.email}
+            />
+          ) : null
+        )}
       </div>
     </div>
   );

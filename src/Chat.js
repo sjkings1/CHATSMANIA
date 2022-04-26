@@ -91,7 +91,8 @@ debugger
             {message.message} {""} {""}
             <span className="chat_timestamp">
               {/* {new Date(message.timestamp?.toDate()).toLocaleString()} */}
-              {moment(new Date(message.timestamp)).format('hh:mm A') } {new Date(message.timestamp).toDateString()}
+              {moment(new Date(message.timestamp)).format('hh:mm A') } 
+              {/* {new Date(message.timestamp).toDateString()} */}
             </span>
           </p>
         ))}
