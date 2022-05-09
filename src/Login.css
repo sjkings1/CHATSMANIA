@@ -17,7 +17,9 @@
 
 .login_text > h1 {
     font-size: 40px;
-    color: #000000;
+    color: #1a1a1a;
+    font-weight: bold;
+    font-family: 'Tapestry', cursive;
 }
 
 .login_container {

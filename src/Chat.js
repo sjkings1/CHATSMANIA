@@ -22,24 +22,32 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
 debugger
-  useEffect(() => {
-    if (roomId) {
-      db.collection("rooms")
-        .doc(roomId)
-        .onSnapshot((snapshot) => {
-          debugger
+useEffect(()=>{
+  if(roomId){
+      db.collection('rooms').doc(roomId).onSnapshot(snapshot => {
           setRoomName(snapshot.data().name);
-        });
+      });
+      let dateOnceFinder = {};
+      db.collection('rooms').doc(roomId).collection("messages").orderBy("timestamp","asc").onSnapshot(snapshot => {
+          setMessages(snapshot.docs.map((doc, index) => {
+              debugger
+              if(index == snapshot.docs.length-1){
+                  setTimeout(() => {
+                      dateOnceFinder = {};
+                  }, 400);
+              }
+              if(!dateOnceFinder[moment(new Date(doc.data().timestamp).toLocaleDateString()).format("LL")]){
+                dateOnceFinder[moment(new Date(doc.data().timestamp).toLocaleDateString()).format("LL")] = moment(new Date(doc.data().timestamp)).format("DD/MM/YYYY") == moment().subtract(1, "days").format("DD/MM/YYYY") ? "Yesterday"  : new Date(doc.data().timestamp).toLocaleDateString() == new Date().toLocaleDateString() ? "Today": moment(new Date(doc.data().timestamp).toLocaleDateString()).format("LL");
+                  return {...doc.data(), dateOnce : dateOnceFinder[moment(new Date(doc.data().timestamp).toLocaleDateString()).format("LL")]}
+              }else{
+                  return doc.data()
+              }
+              
+          }))
+      });
 
-      db.collection("rooms")
-        .doc(roomId)
-        .collection("messages")
-        .orderBy("timestamp", "asc")
-        .onSnapshot((snapshot) => {
-          setMessages(snapshot.docs.map((doc) => doc.data()));
-        });
-    }
-  }, [roomId]);
+  }
+},[roomId])
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -82,19 +90,47 @@ debugger
       </div>
       <div className="chat_body">
         {messages.map((message) => (
-          <p
-            className={`chat_message ${
-              message.name === user.displayName && "chat_receiver"
-            }`}
-          >
+
+          <>
+          <div className='tagHolder'>
+            {message.dateOnce && <p className='tagsForChat'>{message.dateOnce}</p>}
+          </div>
+          <p key={message.id} className={`chat_message ${message.name === user.displayName && "chat_receiver"}`}>
             <span className="chat_name">{message.name}</span>
             {message.message} {""} {""}
             <span className="chat_timestamp">
               {/* {new Date(message.timestamp?.toDate()).toLocaleString()} */}
-              {moment(new Date(message.timestamp)).format('hh:mm A') } 
+              {/* {moment(new Date(message.timestamp)).format('hh:mm A') }  */}
               {/* {new Date(message.timestamp).toDateString()} */}
+
+                        {moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow().includes("seconds") || moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow().includes("minute") || moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow().includes("an hour ago") ? moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow() :  (`${moment(new Date(message.timestamp)).format('hh:mm A')} ${moment(new Date(message.timestamp).toLocaleString()).format("Do MMM")}`)}
+                        
+                        {/* { !moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow().includes("seconds") || !moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow().includes("minutes") || !moment(new Date(
+                            message.
+                            timestamp
+                        )).fromNow().includes("hours") ? "": new Date(message.timestamp).toDateString()} */}
             </span>
           </p>
+          </>
+          
         ))}
       </div>
       <div className="chat_footer">

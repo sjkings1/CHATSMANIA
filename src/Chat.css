@@ -58,6 +58,25 @@
     overflow: scroll;
 }
 
+.tagHolder {
+    display: flex;
+    justify-content: center;
+}
+
+.tagsForChat{
+    background: #bdcccf;
+    /* width: calc(10% - 18px); */
+    padding: 10px;
+    width:fit-content;
+    color: #060030;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    border-color: black;
+    border-width: 5px !important;
+    margin-bottom: 40px;
+}
+
 .chat_message{
     position: relative;
     font-size: 18px;
